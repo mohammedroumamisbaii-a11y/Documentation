@@ -3,153 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MasterClass: Full-Stack BI Implementation</title>
+    <title>MasterClass: Metabase BI Mastery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        :root { --primary: #38bdf8; --bg: #020617; --card: #0f172a; }
+        :root { --primary: #509EE3; --bg: #020617; --card: #0f172a; }
         body { background-color: var(--bg); color: #94a3b8; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         .glass-nav { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #1e293b; }
-        .content-section { border-left: 2px solid #1e293b; padding-left: 2rem; margin-bottom: 4rem; position: relative; }
+        .content-section { border-left: 2px solid #1e293b; padding-left: 2rem; margin-bottom: 6rem; position: relative; }
         .content-section::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary); }
-        .code-window { background: #000; border-radius: 12px; border: 1px solid #334155; overflow: hidden; margin: 20px 0; }
+        .code-window { background: #000; border-radius: 12px; border: 1px solid #334155; overflow: hidden; margin: 25px 0; }
         .code-header { background: #1e293b; padding: 10px 15px; display: flex; gap: 6px; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
         pre { padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #7dd3fc; overflow-x: auto; }
-        .badge { background: rgba(56, 189, 248, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .screen-placeholder { background: #1e293b; border: 2px dashed #334155; border-radius: 12px; display: flex; items-center; justify-content: center; min-height: 300px; color: #475569; margin: 20px 0; font-style: italic; text-align: center; padding: 20px; }
+        .img-container { width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid #334155; margin: 30px 0; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .img-container img { width: 100%; height: auto; display: block; filter: brightness(0.9); transition: 0.5s; }
+        .img-container img:hover { transform: scale(1.02); filter: brightness(1.1); }
+        .highlight { color: #509EE3; font-weight: 800; }
     </style>
 </head>
 <body class="antialiased">
 
     <nav class="glass-nav sticky top-0 z-50 py-4 px-8 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center text-white"><i class="fas fa-layer-group"></i></div>
-            <span class="font-bold text-white tracking-tighter">BI MASTERCLASS 2026</span>
+            <div class="w-8 h-8 bg-[#509EE3] rounded flex items-center justify-center text-white font-bold italic">M</div>
+            <span class="font-bold text-white tracking-tighter uppercase">Metabase Training</span>
         </div>
-        <div class="hidden md:flex gap-6 text-xs font-bold uppercase tracking-widest">
-            <a href="#arch" class="hover:text-white transition">Architecture</a>
-            <a href="#deploy" class="hover:text-white transition">Deployment</a>
-            <a href="#sec" class="hover:text-white transition">Security</a>
-            <a href="#embed" class="hover:text-white transition">Embedding</a>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            <a href="#intro" class="hover:text-blue-400 transition">What is Metabase?</a>
+            <a href="#deploy" class="hover:text-blue-400 transition">Installation</a>
+            <a href="#sec" class="hover:text-blue-400 transition">Embedded Security</a>
+            <a href="#app" class="hover:text-blue-400 transition">Frontend App</a>
         </div>
     </nav>
 
-    <div class="max-w-5xl mx-auto px-6 py-20">
+    <div class="max-w-4xl mx-auto px-6 py-20">
         
-        <header class="mb-20">
-            <span class="badge mb-4 italic">Advanced Engineering Module</span>
-            <h1 class="text-6xl font-extrabold text-white mb-6 leading-tight">Data Democratization: <br><span class="text-blue-500 italic">The BI Framework</span></h1>
-            <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">This documentation provides a 360-degree view of implementing a Business Intelligence layer into a multi-tenant ecosystem. We cover extraction, persistence, and secure delivery.</p>
+        <header class="mb-24 text-center">
+            <div class="mb-6 flex justify-center"><img src="https://www.metabase.com/static/02a9261f8551469e38d689626c11d087/a6021/metabase-logo.png" alt="Metabase Logo" width="200"></div>
+            <h1 class="text-6xl md:text-7xl font-extrabold text-white mb-8 tracking-tighter leading-none">
+                The <span class="highlight italic">Metabase</span> Deep Dive
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                Learn how to deploy, secure, and integrate the world's most popular open-source BI tool into your application.
+            </p>
         </header>
 
-        <section id="arch" class="content-section">
-            <h2 class="text-3xl font-bold text-white mb-6">01. The Global Architecture</h2>
-            <p class="mb-6">Before writing code, we must understand the data flow. A professional BI setup follows the <strong>E-L-V (Extract, Load, Visualize)</strong> pattern.</p>
+        <section id="intro" class="content-section">
+            <h2 class="text-3xl font-bold text-white mb-6 underline decoration-[#509EE3]/50 underline-offset-8 uppercase tracking-tight">01. Understanding Metabase</h2>
+            <p class="mb-6 leading-relaxed">
+                <span class="highlight underline">Metabase</span> is an open-source **Business Intelligence (BI)** tool. Think of it as a bridge between your complex database and your human users. It allows you to:
+            </p>
+            <ul class="list-disc list-inside space-y-3 mb-8 text-slate-300">
+                <li><span class="text-blue-400 font-bold">Ask Questions:</span> Query your database without writing SQL (Visual Query Builder).</li>
+                <li><span class="text-blue-400 font-bold">Build Dashboards:</span> Combine multiple charts into one live view.</li>
+                <li><span class="text-blue-400 font-bold">Analyze Facebook Data:</span> Perfect for seeing your Airbyte-synced Ads spend and performance.</li>
+            </ul>
             
-            <div class="screen-placeholder">
-                <div>
-                    <i class="fas fa-project-diagram text-5xl mb-4"></i>
-                    <p>[Image: High-level system architecture showing API Sources -> Airbyte -> Central Database -> Metabase Engine -> Client Frontend]</p>
-                </div>
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070" alt="Metabase Analytics Dashboard Illustration">
             </div>
             
-
-[Image of business intelligence data architecture showing data sources, ETL process, data warehouse, and visualization tools]
-
-            <p class="mt-6">In this model, the BI engine acts as a separate microservice that "listens" to your database and serves visual components back to your main application via secure tunnels.</p>
+            <p class="text-xs text-center text-slate-600 italic uppercase tracking-widest">Figure 1: The Metabase Analytics Interface in action.</p>
         </section>
 
         <section id="deploy" class="content-section">
-            <h2 class="text-3xl font-bold text-white mb-6">02. Production-Ready Deployment</h2>
-            <p class="mb-4">Using Docker for orchestration ensures that the BI engine has its own isolated memory and process space.</p>
+            <h2 class="text-3xl font-bold text-white mb-6 underline decoration-[#509EE3]/50 underline-offset-8 uppercase tracking-tight">02. Deployment (Docker)</h2>
+            <p class="mb-4 text-slate-300 leading-relaxed">
+                In a professional environment, we run Metabase in a **Docker Container**. This ensures that the BI engine has its own isolated memory and won't crash your main app.
+            </p>
             
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1605745341112-85968b193ef5?auto=format&fit=crop&q=80&w=2071" alt="Server Datacenter Infrastructure">
+            </div>
+
             <div class="code-window">
                 <div class="code-header">
                     <div class="dot bg-red-500"></div><div class="dot bg-yellow-500"></div><div class="dot bg-green-500"></div>
-                    <span class="ml-4 text-[10px] text-slate-400 font-mono italic uppercase">Docker-Compose.yml</span>
+                    <span class="ml-4 text-[10px] text-slate-500 font-mono italic">Bash Setup</span>
                 </div>
-                <pre><code>version: '3.9'
-services:
-  bi_engine:
-    image: metabase/metabase:latest
-    container_name: metabase_instance
-    ports:
-      - "3000:3000"
-    environment:
-      - MB_DB_TYPE=postgres
-      - MB_DB_DBNAME=metabaseappdb
-      - MB_DB_PORT=5432
-      - MB_DB_USER=db_admin
-      - MB_DB_PASS=secure_password
-      - MB_DB_HOST=postgres_host
-    restart: always</code></pre>
-            </div>
+                <pre><code># Run Metabase on Port 3000
+docker run -d -p 3000:3000 --name metabase metabase/metabase
 
-            <div class="screen-placeholder">
-                <div>
-                    <i class="fas fa-desktop text-5xl mb-4"></i>
-                    <p>[Screenshot: The Metabase Initial Setup Screen showing "Add your Data" step]</p>
-                </div>
+# Access via Browser:
+http://localhost:3000</code></pre>
             </div>
-            
+            <p class="text-sm italic">Note: Once running, follow the setup wizard to connect your MySQL database.</p>
         </section>
 
         <section id="sec" class="content-section">
-            <h2 class="text-3xl font-bold text-white mb-6">03. The Security Protocol (JWT)</h2>
-            <p class="mb-4">We never use public links in a commercial app. We implement <strong>Interactive Signed Embedding</strong>. This ensures Client A cannot see Client B's data.</p>
+            <h2 class="text-3xl font-bold text-white mb-6 underline decoration-[#509EE3]/50 underline-offset-8 uppercase tracking-tight">03. Professional Embedding (JWT)</h2>
+            <p class="mb-6">
+                You don't want your clients to log into Metabase. You want them to stay in your app. We use <span class="highlight">Interactive Signed Embedding</span> via JWT (JSON Web Tokens).
+            </p>
             
-            <h4 class="text-blue-400 font-bold mb-2 uppercase text-xs">The Payload Logic</h4>
-            <div class="code-window">
-                <pre><code>{
-  "resource": { "dashboard": 1 },
-  "params": {
-    "organization_id": 502  // Locked parameter: The user only sees data for Org 502
-  },
-  "exp": 1712416800 // Token expires in 15 minutes
-}</code></pre>
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070" alt="Cyber Security JWT Concept">
             </div>
             
-            <p class="text-sm italic text-slate-500 mb-6">Note: The signature is created using the HS256 algorithm with your Private Embedding Key.</p>
+
+            <h4 class="text-blue-400 font-bold mb-2 uppercase text-xs">How it works:</h4>
+            <ol class="list-decimal list-inside text-sm space-y-3 mb-6 text-slate-300">
+                <li>Metabase gives you an <span class="text-white font-bold tracking-widest">EMBEDDING_SECRET_KEY</span>.</li>
+                <li>Your Backend signs a message saying: "User 1 is allowed to see Dashboard 5".</li>
+                <li>The Browser opens an iframe with this signed token.</li>
+            </ol>
         </section>
 
-        <section id="embed" class="content-section">
-            <h2 class="text-3xl font-bold text-white mb-6">04. Frontend Component Delivery</h2>
-            <p class="mb-4">The final integration involves rendering the signed URL. Here is how it looks in a generic modern component:</p>
+        <section id="app" class="content-section border-transparent">
+            <h2 class="text-3xl font-bold text-white mb-6 underline decoration-[#509EE3]/50 underline-offset-8 uppercase tracking-tight">04. Frontend Rendering</h2>
+            <p class="mb-8 leading-relaxed">The final result is a seamless, native-looking dashboard within your existing software. No Metabase login required.</p>
             
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2026" alt="Modern Web Dashboard UI Example">
+            </div>
+            
+
             <div class="code-window">
                 <div class="code-header">
-                    <span class="text-[10px] text-slate-400 font-mono uppercase italic">BI-Dashboard.component</span>
+                    <span class="text-[10px] text-slate-500 font-mono italic uppercase tracking-tighter font-bold">Embedded_UI.vue / .html</span>
                 </div>
-                <pre><code>&lt;section class="analytics-wrapper"&gt;
-  &lt;!-- Dynamic iframe with Signed URL from Backend --&gt;
-  &lt;iframe
-    src="https://analytics.your-domain.com/embed/dashboard/YOUR_JWT_HERE#bordered=true"
-    frameborder="0"
-    width="100%"
-    height="1000px"
-    allowtransparency
-  &gt;&lt;/iframe&gt;
-&lt;/section&gt;</code></pre>
+                <pre><code>&lt;!-- The frontend doesn't know it's Metabase --&gt;
+&lt;iframe 
+  src="https://your-server.com/embed/dashboard/SIGNED_JWT_TOKEN" 
+  width="100%" 
+  height="600" 
+  frameborder="0" 
+  allowtransparency&gt;
+&lt;/iframe&gt;</code></pre>
             </div>
-
-            <div class="screen-placeholder">
-                <div>
-                    <i class="fas fa-chart-line text-5xl mb-4"></i>
-                    <p>[Screenshot: A clean dashboard showing Bar Charts and KPIs integrated into a CRM sidebar]</p>
-                </div>
-            </div>
-            
         </section>
 
-        <footer class="mt-32 pt-10 border-t border-slate-900 flex justify-between items-center text-[10px] uppercase tracking-widest text-slate-600 font-bold">
-            <div>&copy; 2026 Advanced Engineering Series</div>
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-blue-500">Documentation</a>
-                <a href="#" class="hover:text-blue-500">API Reference</a>
-                <a href="#" class="hover:text-blue-500">Security Audit</a>
-            </div>
+        <footer class="mt-40 pt-10 border-t border-slate-900 text-center">
+            <p class="text-[10px] uppercase tracking-[0.4em] text-slate-600 font-black italic">
+                Advanced Metabase Engineering Module • 2026
+            </p>
         </footer>
 
     </div>
