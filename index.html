@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SomoCRM | End-to-End BI Pipeline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { background-color: #020617; color: #94a3b8; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .step-box { background: #0f172a; border: 1px solid #1e293b; transition: 0.3s; }
+        .step-box:hover { border-color: #38bdf8; }
+        .code-snippet { background: #000; padding: 1rem; border-radius: 0.5rem; color: #38bdf8; font-family: 'Fira Code', monospace; font-size: 0.85rem; border: 1px solid #334155; }
+        .meta-tag { background: #1877F2; color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12 border-b border-slate-800 pb-8">
+            <h1 class="text-4xl font-extrabold text-white mb-2">The "Zero-to-Dashboard" Pipeline</h1>
+            <p class="text-slate-400 italic font-medium">Objective: Extract Meta Ads Data → SomoCRM MySQL → Metabase Visualization</p>
+        </header>
+
+        <div class="step-box p-8 rounded-2xl mb-10 shadow-2xl">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="meta-tag uppercase tracking-tighter">Phase 01</span>
+                <h2 class="text-2xl font-bold text-white italic underline decoration-blue-500">Facebook Developers Setup</h2>
+            </div>
+            <ol class="space-y-6 text-sm list-decimal list-inside">
+                <li>
+                    <strong>Create App:</strong> Go to <a href="https://developers.facebook.com" class="text-blue-400 underline">Meta for Developers</a>. Click <strong>Create App</strong> > <strong>Other</strong> > <strong>Business</strong>.
+                </li>
+                <li>
+                    <strong>Add Marketing API:</strong> Inside your App Dashboard, find "Marketing API" and click <strong>Set Up</strong>.
+                </li>
+                <li>
+                    <strong>Generate Access Token:</strong> 
+                    <p class="mt-2 text-slate-500 italic">Navigate to Marketing API > Tools. Select all 3 permissions:</p>
+                    <div class="flex gap-2 mt-2">
+                        <code class="bg-slate-800 text-[10px] px-2 py-1 rounded text-pink-400">ads_read</code>
+                        <code class="bg-slate-800 text-[10px] px-2 py-1 rounded text-pink-400">ads_management</code>
+                        <code class="bg-slate-800 text-[10px] px-2 py-1 rounded text-pink-400">read_insights</code>
+                    </div>
+                    <p class="mt-2 text-blue-300 font-bold underline">Click "Generate Token" and SAVE it immediately.</p>
+                </li>
+                <li>
+                    <strong>Find Ad Account ID:</strong> Go to your Meta Ads Manager. The ID is in the URL (usually starts with <code>act_</code>).
+                </li>
+            </ol>
+        </div>
+
+        <div class="step-box p-8 rounded-2xl mb-10 border-l-4 border-emerald-500">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-2 py-1 rounded">Phase 02</span>
+                <h2 class="text-2xl font-bold text-white">Airbyte Installation (Docker)</h2>
+            </div>
+            <p class="text-sm mb-4">On your MSI Thin 15, open your terminal (PowerShell or Bash) and run:</p>
+            <div class="code-snippet mb-4">
+                # Clone and start Airbyte<br>
+                git clone https://github.com/airbytehq/airbyte-platform.git<br>
+                cd airbyte-platform<br>
+                ./run-ab-platform.sh
+            </div>
+            <div class="bg-emerald-900/20 p-4 rounded-lg border border-emerald-500/20 text-xs text-emerald-300">
+                <i class="fas fa-info-circle mr-2"></i> After setup, open <strong>http://localhost:8000</strong>. Default login is usually <code>airbyte</code> / <code>password</code>.
+            </div>
+        </div>
+
+        <div class="step-box p-8 rounded-2xl mb-10">
+            <div class="flex items-center gap-4 mb-6 text-purple-400">
+                <i class="fas fa-random text-2xl"></i>
+                <h2 class="text-2xl font-bold text-white italic underline decoration-purple-500">The Connection Sync</h2>
+            </div>
+            <div class="space-y-6 text-sm">
+                <div>
+                    <h3 class="font-bold text-slate-200 mb-2 underline tracking-widest">A. Set Source (Facebook)</h3>
+                    <p>In Airbyte Dashboard, click <strong>Sources</strong> > <strong>+ New Source</strong>. Search for "Facebook Ads". Paste your <strong>Access Token</strong> and <strong>Ad Account ID</strong>. Click <strong>Set Up Source</strong>.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-200 mb-2 underline tracking-widest uppercase">B. Set Destination (MySQL)</h3>
+                    <p>Click <strong>Destinations</strong> > <strong>+ New Destination</strong>. Search for "MySQL".</p>
+                    <ul class="mt-2 space-y-1 text-slate-400 bg-black/50 p-3 rounded">
+                        <li><strong>Host:</strong> host.docker.internal (Crucial for local Docker DB)</li>
+                        <li><strong>Port:</strong> 3306</li>
+                        <li><strong>Database:</strong> somocrm_backend</li>
+                        <li><strong>User/Password:</strong> Your local MySQL credentials.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-box p-8 rounded-2xl mb-10 border-t-4 border-orange-500">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-orange-500/10 text-orange-400 text-[10px] font-bold px-2 py-1 rounded">Phase 03</span>
+                <h2 class="text-2xl font-bold text-white italic tracking-tighter uppercase">Metabase Visualization</h2>
+            </div>
+            <p class="text-sm mb-4">Metabase will sit on top of your DB to show the charts.</p>
+            <div class="code-snippet mb-4">
+                docker run -d -p 3000:3000 --name metabase metabase/metabase
+            </div>
+            <ol class="text-sm space-y-3">
+                <li>1. Visit <strong>http://localhost:3000</strong>.</li>
+                <li>2. Connect to your <strong>MySQL</strong> database (same credentials as Step 3).</li>
+                <li>3. Locate the table <code>airbyte_raw_fb_ads_insights</code>.</li>
+                <li>4. Create "Questions" (e.g., "Total Spend per Day") and save them to a <strong>SomoCRM Dashboard</strong>.</li>
+            </ol>
+        </div>
+
+        <footer class="text-center py-10 opacity-30 text-[10px] uppercase tracking-widest border-t border-slate-900">
+            SomoCRM Intelligence Pipeline • Built by Soufiane • 2026
+        </footer>
+    </div>
+
+</body>
+</html>
