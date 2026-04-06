@@ -3,81 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SomoCRM | Metabase Integration Guide</title>
+    <title>Technical Training: BI Engine Integration</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        body { background-color: #020617; color: #94a3b8; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .step-card { background: rgba(15, 23, 42, 0.8); border-left: 4px solid #3b82f6; border-radius: 0 1rem 1rem 0; }
-        code { font-family: 'Fira Code', monospace; color: #38bdf8; background: #000; padding: 2px 6px; border-radius: 4px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap');
+        body { background-color: #f8fafc; color: #334155; font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .sidebar { background-color: #0f172a; color: white; }
+        .nav-link { color: #94a3b8; transition: 0.2s; }
+        .nav-link:hover { color: #38bdf8; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.875rem; margin: 1rem 0; overflow-x: auto; }
+        .step-number { background: #38bdf8; color: white; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; font-size: 14px; }
+        h2 { color: #0f172a; font-weight: 800; font-size: 1.875rem; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .important-note { background: #fefce8; border-left: 4px solid #facc15; padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem; }
+    </div>
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body class="flex flex-col md:flex-row min-h-screen">
 
-    <div class="max-w-4xl mx-auto">
+    <aside class="sidebar w-full md:w-72 p-8 space-y-8 flex-shrink-0">
+        <div>
+            <h1 class="text-xl font-black tracking-tighter text-white">BI TRAINING <span class="text-blue-400">HUB</span></h1>
+            <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1 font-bold text-uppercase">Full-Stack Implementation</p>
+        </div>
+        <nav class="space-y-4 text-sm font-semibold">
+            <a href="#install" class="block nav-link"><i class="fas fa-server mr-2"></i> 01. Server Deployment</a>
+            <a href="#connect" class="block nav-link"><i class="fas fa-database mr-2"></i> 02. Data Connection</a>
+            <a href="#security" class="block nav-link"><i class="fas fa-user-shield mr-2"></i> 03. Signed Embedding</a>
+            <a href="#frontend" class="block nav-link"><i class="fas fa-code mr-2"></i> 04. App Integration</a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-8 md:p-16 max-w-5xl">
+        
         <header class="mb-12">
-            <h1 class="text-4xl font-black text-white mb-2 underline decoration-blue-500">Metabase & Laravel Integration</h1>
-            <p class="text-slate-400">Step-by-Step Technical Guide for SomoCRM Developers.</p>
+            <h1 class="text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Embedding Analytics into Modern Applications</h1>
+            <p class="text-xl text-slate-500 max-w-3xl">A comprehensive guide for developers to install, secure, and integrate professional Business Intelligence dashboards into any software ecosystem.</p>
         </header>
 
-        <div class="step-card p-6 mb-8 shadow-xl">
-            <h2 class="text-xl font-bold text-white mb-4"><i class="fas fa-server mr-2 text-blue-500"></i> Phase 1: Deploy Metabase</h2>
-            <p class="text-sm mb-4">Run Metabase using Docker. Ensure it's in the same network as your MySQL database.</p>
-            <div class="bg-black p-4 rounded-lg border border-slate-800 text-xs text-green-400">
-                docker run -d -p 3000:3000 --name metabase metabase/metabase
+        <section id="install">
+            <h2>01. Server-Side Deployment</h2>
+            <p>To run a BI engine reliably, Docker is the industry standard. It ensures that the environment is consistent from development to production.</p>
+            
+            <h3 class="font-bold mt-6 mb-2">A. Local/Production Launch</h3>
+            <p class="text-sm">Run the following command to pull the latest image and map the persistence port (3000):</p>
+            <div class="code-block">
+                docker run -d -p 3000:3000 --name bi_engine metabase/metabase
             </div>
-            <p class="mt-4 text-xs italic">Open <strong>http://localhost:3000</strong>, complete the setup, and connect your <code>somocrm_db</code>.</p>
-        </div>
-
-        <div class="step-card p-6 mb-8 border-l-purple-500 shadow-xl">
-            <h2 class="text-xl font-bold text-white mb-4"><i class="fas fa-lock mr-2 text-purple-500"></i> Phase 2: Security & Signed URLs</h2>
-            <p class="text-sm mb-2">To show charts safely inside our CRM, we use <strong>Signed Embedding</strong> (JWT).</p>
-            <ol class="list-decimal list-inside text-sm space-y-2">
-                <li>Go to <strong>Admin Settings</strong> > <strong>Embedding</strong>.</li>
-                <li>Click <strong>Enable</strong> and copy the <strong>Embedding Secret Key</strong>.</li>
-                <li>Add this key to your Laravel <code>.env</code>:</li>
-            </ol>
-            <div class="bg-black p-4 rounded-lg border border-slate-800 text-xs text-blue-400 mt-2">
-                METABASE_SITE_URL="http://localhost:3000"<br>
-                METABASE_SECRET_KEY="your_copied_secret_key"
+            
+            <div class="important-note text-sm">
+                <strong>💡 Production Tip:</strong> For high-availability, always map a persistent volume to <code>/metabase.db</code> or connect Metabase to an external Postgres database to store its configuration metadata.
             </div>
-        </div>
+        </section>
 
-        <div class="step-card p-6 mb-8 border-l-orange-500 shadow-xl">
-            <h2 class="text-xl font-bold text-white mb-4"><i class="fab fa-laravel mr-2 text-orange-500"></i> Phase 3: Generating the Token</h2>
-            <p class="text-sm mb-4">In your Laravel Controller, generate a secure JWT token for the specific dashboard ID.</p>
-            <div class="bg-black p-4 rounded-lg border border-slate-800 text-xs text-orange-300">
-                <pre><code>use Firebase\JWT\JWT;
+        <section id="connect">
+            <h2>02. Data Source Orchestration</h2>
+            <p>Once the server is live at <code>http://your-server-ip:3000</code>, you must bridge it with your application's data.</p>
+            <ul class="list-disc list-inside mt-4 space-y-3 text-slate-600">
+                <li><strong>Compatibility:</strong> Connects to MySQL, PostgreSQL, MongoDB, SQL Server, and BigQuery.</li>
+                <li><strong>Read-Only Access:</strong> Always create a specific database user with <code>SELECT</code> only permissions for the BI engine. This prevents accidental data deletion via the BI interface.</li>
+                <li><strong>Sync Frequency:</strong> Configure the engine to scan for schema changes every hour to stay updated with your app's migrations.</li>
+            </ul>
+        </section>
 
-public function getDashboardUrl($id) {
-    $payload = [
-        "resource" => ["dashboard" => $id],
-        "params" => (object)[],
-        "exp" => time() + (60 * 10) // 10 mins expiry
-    ];
-    $token = JWT::encode($payload, env('METABASE_SECRET_KEY'), 'HS256');
-    return env('METABASE_SITE_URL') . "/embed/dashboard/" . $token . "#bordered=false&titled=true";
-}</code></pre>
+        <section id="security">
+            <h2>03. Implementing Signed Embedding</h2>
+            <p>Standard sharing is public. In professional apps, we use <strong>Signed Embedding</strong> to ensure that only authenticated users can see specific charts.</p>
+            
+            <h3 class="font-bold mt-6 mb-2 text-slate-800">The Authentication Logic:</h3>
+            <p class="text-sm mb-4">The application generates a <strong>JSON Web Token (JWT)</strong> signed with a secret key provided by the BI engine. This token tells the engine: "I am a trusted app, and I allow this user to see Dashboard X."</p>
+
+            <div class="code-block">
+                // Logic Flow (Backend)
+                1. Define the Dashboard ID.
+                2. Set an expiration time (e.g., +15 minutes).
+                3. Create a payload: { "resource": {"dashboard": 123}, "params": {} }
+                4. Sign the payload using HS256 algorithm with your SECRET_KEY.
             </div>
-        </div>
+        </section>
 
-        <div class="step-card p-6 mb-8 border-l-emerald-500 shadow-xl">
-            <h2 class="text-xl font-bold text-white mb-4"><i class="fab fa-vuejs mr-2 text-emerald-500"></i> Phase 4: Display in Vue.js</h2>
-            <p class="text-sm mb-4">Finally, use an <code>&lt;iframe&gt;</code> to show the chart in your Vue dashboard.</p>
-            <div class="bg-black p-4 rounded-lg border border-slate-800 text-xs text-emerald-300">
-                <pre><code>&lt;template&gt;
-  &lt;div class="dashboard-container"&gt;
-    &lt;iframe :src="metabaseUrl" frameborder="0" width="100%" height="600" allowtransparency&gt;&lt;/iframe&gt;
-  &lt;/div&gt;
-&lt;/template&gt;</code></pre>
+        <section id="frontend">
+            <h2>04. Application Frontend Integration</h2>
+            <p>The final step is rendering the secured dashboard inside your application's UI. This is done via an <code>&lt;iframe&gt;</code>.</p>
+
+            <h3 class="font-bold mt-6 mb-2 text-slate-800">Implementation Example:</h3>
+            <div class="code-block text-emerald-400">
+                &lt;!-- The frontend receives the Signed URL from the backend --&gt;
+                &lt;iframe
+                    src="https://stats.yourapp.com/embed/dashboard/SIGNATURE_HERE#bordered=true&titled=false"
+                    frameborder="0"
+                    width="100%"
+                    height="800"
+                    allowtransparency
+                &gt;&lt;/iframe&gt;
             </div>
-        </div>
 
-        <footer class="text-center py-10 opacity-40 text-[10px] uppercase tracking-widest">
-            Metabase Implementation Guide • SomoCRM • 2026
+            <div class="important-note text-sm">
+                <strong>🔒 Multi-tenancy:</strong> If your app has multiple clients, you can pass <code>locked parameters</code> in the JWT. This ensures Client A can <strong>never</strong> see Client B's data, even if they change the ID in the URL.
+            </div>
+        </section>
+
+        <footer class="mt-20 pt-10 border-t border-slate-200 text-center text-slate-400 text-sm">
+            <p>&copy; 2026 Engineering Training Module • Confidential & Technical</p>
         </footer>
-    </div>
 
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
