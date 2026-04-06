@@ -26,23 +26,28 @@
 
     <nav class="glass-nav sticky top-0 z-50 py-4 px-8 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <img src="https://blent-static-media.s3.eu-west-3.amazonaws.com/photos/blog/airbyte-logo.svg" alt="Airbyte Logo" class="h-6 invert">
+            <img src="https://raw.githubusercontent.com/airbytehq/airbyte/master/resources/logo.png" alt="Airbyte Logo" class="h-6 invert">
             <span class="h-4 w-[1px] bg-slate-700 mx-2"></span>
             <span class="font-bold text-white tracking-tighter uppercase text-xs">ETL Training</span>
         </div>
-        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-            <a href="#intro" class="hover:text-purple-400 transition">What is Airbyte?</a>
-            <a href="#pipeline" class="hover:text-purple-400 transition">The Pipeline</a>
-            <a href="#setup" class="hover:text-purple-400 transition">Installation</a>
-            <a href="#config" class="hover:text-purple-400 transition">Configuration</a>
+
+        <div class="flex items-center gap-4 md:gap-8">
+            <div class="hidden lg:flex gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <a href="#intro" class="hover:text-purple-400 transition">What is Airbyte?</a>
+                <a href="#pipeline" class="hover:text-purple-400 transition">The Pipeline</a>
+                <a href="#setup" class="hover:text-purple-400 transition">Installation</a>
+            </div>
+            
+            <a href="index.html" class="flex items-center gap-2 bg-purple-600/10 hover:bg-purple-600/20 text-purple-400 px-4 py-2 rounded-lg border border-purple-500/20 text-[10px] font-black uppercase tracking-widest transition shadow-lg shadow-purple-500/5">
+                <i class="fas fa-th-large"></i>
+                <span>Back to Hub</span>
+            </a>
         </div>
     </nav>
 
     <div class="max-w-4xl mx-auto px-6 py-20">
         
         <header class="mb-24 text-center">
-            <div class="mb-6 flex justify-center">
-            </div>
             <h1 class="text-6xl md:text-7xl font-extrabold text-white mb-8 tracking-tighter leading-none">
                 Mastering <span class="highlight italic text-purple-500">Airbyte</span> ETL
             </h1>
@@ -54,7 +59,7 @@
         <section id="intro" class="content-section">
             <h2 class="text-3xl font-bold text-white mb-6 underline decoration-purple-500/50 underline-offset-8 uppercase tracking-tight">01. What is Airbyte?</h2>
             <p class="mb-6 leading-relaxed">
-                <span class="highlight underline">Airbyte</span> is an open-source **Data Integration (ELT)** platform. In our stack, it's the "Truck" that goes to Facebook Ads API, picks up the data, and delivers it to our MySQL database.
+                <span class="highlight underline">Airbyte</span> is an open-source **Data Integration (ELT)** platform. It's the "Truck" that goes to the Meta Ads API, picks up data, and delivers it to our MySQL.
             </p>
             
             <div class="grid md:grid-cols-2 gap-8 my-10">
@@ -73,81 +78,43 @@
             <div class="img-container">
                 <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=2000" alt="Server Data Center">
             </div>
-            
         </section>
 
         <section id="pipeline" class="content-section">
             <h2 class="text-3xl font-bold text-white mb-6 underline decoration-purple-500/50 underline-offset-8 uppercase tracking-tight">02. The Data Pipeline Logic</h2>
-            <p class="mb-4 text-slate-300 leading-relaxed italic">"How data moves from Meta to our Dashboard"</p>
+            <p class="mb-8 text-slate-300 leading-relaxed italic">"How data moves from Meta to our Dashboard"</p>
             
             <div class="img-container">
                 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2070" alt="Digital Circuit Data Flow">
             </div>
-            
 
-            <div class="space-y-4 mt-8">
+            <div class="space-y-4 mt-8 text-sm">
                 <div class="flex items-start gap-4 p-4 bg-slate-800/30 rounded-lg">
-                    <div class="bg-purple-600 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold">1</div>
-                    <p class="text-sm"><strong>Extract:</strong> Airbyte calls the Meta Marketing API using your Access Token.</p>
+                    <div class="bg-purple-600 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold shrink-0">1</div>
+                    <p><strong>Extract:</strong> Airbyte pulls raw data via API using your Access Token.</p>
                 </div>
                 <div class="flex items-start gap-4 p-4 bg-slate-800/30 rounded-lg">
-                    <div class="bg-purple-600 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold">2</div>
-                    <p class="text-sm"><strong>Normalize:</strong> Airbyte converts the complex JSON from Meta into a readable SQL format.</p>
+                    <div class="bg-purple-600 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold shrink-0">2</div>
+                    <p><strong>Normalize:</strong> Airbyte converts complex JSON into clean SQL rows.</p>
                 </div>
                 <div class="flex items-start gap-4 p-4 bg-slate-800/30 rounded-lg">
-                    <div class="bg-purple-600 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold">3</div>
-                    <p class="text-sm"><strong>Load:</strong> The data is pushed into our <code>somocrm_db</code> into "Airbyte Raw" tables.</p>
+                    <div class="bg-purple-600 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold shrink-0">3</div>
+                    <p><strong>Load:</strong> Data is pushed into <code>somocrm_db</code> as "Airbyte Raw" tables.</p>
                 </div>
             </div>
         </section>
 
         <section id="setup" class="content-section">
-            <h2 class="text-3xl font-bold text-white mb-6 underline decoration-purple-500/50 underline-offset-8 uppercase tracking-tight">03. Installation (Docker-Compose)</h2>
-            <p class="mb-6">For the MSI Thin 15, we use Docker to run the entire Airbyte ecosystem (Server, Worker, UI).</p>
-            
+            <h2 class="text-3xl font-bold text-white mb-6 underline decoration-purple-500/50 underline-offset-8 uppercase tracking-tight">03. Installation</h2>
             <div class="code-window">
                 <div class="code-header">
                     <div class="dot bg-red-500"></div><div class="dot bg-yellow-500"></div><div class="dot bg-green-500"></div>
                     <span class="ml-4 text-[10px] text-slate-500 font-mono italic">Terminal Deployment</span>
                 </div>
-                <pre><code># Clone official Airbyte
+                <pre><code># Clone and start Airbyte
 git clone https://github.com/airbytehq/airbyte-platform.git
 cd airbyte-platform
-
-# Run the bootstrapper script
-./run-ab-platform.sh
-
-# Access UI at: http://localhost:8000
-# User: airbyte / Pass: password</code></pre>
-            </div>
-            
-        </section>
-
-        <section id="config" class="content-section border-transparent">
-            <h2 class="text-3xl font-bold text-white mb-6 underline decoration-purple-500/50 underline-offset-8 uppercase tracking-tight">04. Source & Destination Config</h2>
-            <p class="mb-8 leading-relaxed">This is where the magic happens. We bridge the gap between Meta and MySQL.</p>
-            
-            <div class="img-container">
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2072" alt="Global Data Connection">
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
-                    <h4 class="text-blue-400 font-bold mb-2">Meta Ads Source</h4>
-                    <p class="text-xs space-y-1">
-                        • Ad Account ID (act_xxxxxxxx)<br>
-                        • Long-lived Access Token<br>
-                        • Insight Windows (7d, 28d)
-                    </p>
-                </div>
-                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
-                    <h4 class="text-emerald-400 font-bold mb-2">MySQL Destination</h4>
-                    <p class="text-xs space-y-1">
-                        • Host: host.docker.internal<br>
-                        • Port: 3306<br>
-                        • Database: somocrm_data
-                    </p>
-                </div>
+./run-ab-platform.sh</code></pre>
             </div>
         </section>
 
