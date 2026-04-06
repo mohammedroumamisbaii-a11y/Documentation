@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer Roadmap — 15 Jours</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; color: #1a1a2e; font-size: 13px; }
+
+  .cover {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+    page-break-after: always;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cover h1 { font-size: 36px; font-weight: 800; letter-spacing: 2px; margin-bottom: 10px; }
+  .cover .subtitle { font-size: 18px; color: #e94560; font-weight: 600; margin-bottom: 30px; }
+  .cover .desc { font-size: 14px; color: #a8b2d8; max-width: 500px; margin: 0 auto 40px; line-height: 1.8; }
+  .cover .stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; }
+  .cover .stat { text-align: center; }
+  .cover .stat-num { font-size: 42px; font-weight: 900; color: #e94560; }
+  .cover .stat-label { font-size: 12px; color: #a8b2d8; text-transform: uppercase; letter-spacing: 1px; }
+  .cover .badge {
+    display: inline-block; background: #e94560; color: white;
+    padding: 8px 20px; border-radius: 20px; font-size: 12px;
+    font-weight: 700; letter-spacing: 1px; margin-top: 30px;
+    text-transform: uppercase;
+  }
+
+  .page { padding: 30px 35px; page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+
+  h2.section-title {
+    font-size: 20px; font-weight: 800; color: #0f3460;
+    border-left: 5px solid #e94560; padding-left: 12px;
+    margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* REALITY CHECK */
+  .reality-box {
+    background: #fff3cd; border: 2px solid #ffc107;
+    border-radius: 10px; padding: 20px; margin-bottom: 25px;
+  }
+  .reality-box h3 { color: #856404; font-size: 14px; margin-bottom: 10px; }
+  .reality-box p { color: #533f03; line-height: 1.7; font-size: 13px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 22px; top: 0; bottom: 0;
+    width: 3px; background: linear-gradient(to bottom, #e94560, #0f3460);
+  }
+  .tl-item { display: flex; gap: 20px; margin-bottom: 18px; align-items: flex-start; }
+  .tl-dot {
+    width: 46px; height: 46px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-weight: 900;
+    font-size: 13px; color: white; flex-shrink: 0; position: relative; z-index: 1;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .dot-red { background: #e94560; }
+  .dot-blue { background: #0f3460; }
+  .dot-green { background: #06864a; }
+  .dot-orange { background: #e07b00; }
+
+  .tl-content { background: white; border-radius: 10px; padding: 12px 16px; flex: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .tl-content .day-label { font-size: 11px; color: #e94560; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .tl-content h4 { font-size: 14px; font-weight: 700; color: #0f3460; margin: 3px 0 6px; }
+  .tl-content p { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 6px; }
+  .tl-content a { color: #e94560; text-decoration: none; font-size: 11px; font-weight: 600; }
+  .tl-content a:hover { text-decoration: underline; }
+  .tl-content .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 700; margin-right: 4px; margin-top: 4px;
+  }
+  .tag-oc { background: #dbeafe; color: #1e40af; }
+  .tag-yt { background: #fee2e2; color: #991b1b; }
+  .tag-doc { background: #dcfce7; color: #166534; }
+  .tag-key { background: #fef3c7; color: #92400e; }
+  .tag-interview { background: #f3e8ff; color: #6b21a8; }
+
+  /* INTERVIEW CARDS */
+  .interview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .interview-card { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-top: 4px solid #e94560; }
+  .interview-card h4 { font-size: 13px; color: #0f3460; font-weight: 700; margin-bottom: 8px; }
+  .interview-card .q { font-size: 12px; color: #333; font-style: italic; margin-bottom: 4px; }
+  .interview-card .a { font-size: 11px; color: #555; padding-left: 10px; border-left: 2px solid #e94560; margin-bottom: 8px; line-height: 1.5; }
+
+  /* TOOLS TABLE */
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .tool-card { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .tool-card h4 { font-size: 12px; color: #e94560; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
+  .tool-card ul { list-style: none; }
+  .tool-card ul li { font-size: 12px; color: #333; padding: 3px 0; border-bottom: 1px solid #f0f0f0; }
+  .tool-card ul li:last-child { border-bottom: none; }
+  .tool-card ul li::before { content: '▸ '; color: #e94560; }
+
+  /* STACK */
+  .stack-box {
+    background: #0f3460; color: white; border-radius: 12px;
+    padding: 20px 25px; font-family: 'Courier New', monospace; font-size: 13px;
+    line-height: 2; margin-bottom: 20px;
+  }
+  .stack-box .arrow { color: #e94560; }
+  .stack-box .label { color: #a8b2d8; font-size: 11px; }
+
+  /* PHASE BOX */
+  .phase-box { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 15px; }
+  .phase-box h3 { font-size: 15px; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .phase-num { background: #e94560; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; flex-shrink: 0; }
+  .feature-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .feature-icon { font-size: 20px; flex-shrink: 0; }
+  .feature-text h5 { font-size: 13px; font-weight: 700; color: #0f3460; }
+  .feature-text p { font-size: 12px; color: #666; line-height: 1.5; }
+
+  /* HEADER */
+  .page-header {
+    background: linear-gradient(90deg, #0f3460, #16213e);
+    color: white; padding: 15px 25px; margin: -30px -35px 25px;
+    display: flex; align-items: center; justify-content: between;
+  }
+  .page-header h3 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
+  .page-header .page-num { margin-left: auto; font-size: 12px; color: #a8b2d8; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 15px; color: #999; font-size: 11px; margin-top: 20px; border-top: 1px solid #eee; }
+
+  .highlight { background: #fef3c7; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+  .red { color: #e94560; }
+
+  @media print {
+    body { background: white; }
+    .page { page-break-after: always; }
+    .cover { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div style="font-size:11px; letter-spacing:3px; color:#a8b2d8; text-transform:uppercase; margin-bottom:20px;">Roadmap Personnel</div>
+  <h1>AI ENGINEER</h1>
+  <div class="subtitle">Developer → AI Engineer</div>
+  <div class="desc">
+    Plan concret de 15 jours pour maîtriser les concepts utilisés dans les vraies entreprises —
+    pas académique, orienté production et interviews.
+  </div>
+  <div class="badge">2h / jour × 16 jours</div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">16</div>
+      <div class="stat-label">Jours Concepts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">32h</div>
+      <div class="stat-label">Total Étude</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Features CRM</div>
+    </div>
+  </div>
+  <div style="margin-top:50px; color:#a8b2d8; font-size:11px;">
+    Après les 15 jours → Practice directement dans le projet CRM
+  </div>
+</div>
+
+<!-- PAGE 1 — REALITY CHECK + WEEK 1 -->
+<div class="page">
+  <div class="page-header">
+    <h3>Semaine 1 — Fondations</h3>
+    <span class="page-num">01</span>
+  </div>
+
+  <div class="reality-box">
+    <h3>⚠ Ce que les entreprises veulent vraiment</h3>
+    <p>
+      Les entretiens AI Engineer en 2025 testent <strong>RAG, Agents, APIs, et le déploiement</strong> — pas la théorie mathématique.
+      Ils veulent voir que tu as déjà <strong>construit quelque chose</strong> qui tourne en production.
+      C'est pour ça que la phase practice dans le CRM est aussi importante que les concepts.
+    </p>
+  </div>
+
+  <h2 class="section-title">Semaine 1 — Fondations (Days 1-7)</h2>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot dot-blue">1-2</div>
+      <div class="tl-content">
+        <div class="day-label">Day 1 → 2 · 4h total</div>
+        <h4>Python pour Développeurs</h4>
+        <p>T3ref syntax de base, list comprehensions, async/await, classes. Tu es déjà dev donc ça va vite.</p>
+        <span class="tag tag-oc">OpenClassrooms</span>
+        <br>
+        <a href="https://openclassrooms.com/us/courses/7168871-apprenez-les-bases-du-langage-python">▸ Apprenez les bases du langage Python</a><br>
+        <a href="https://openclassrooms.com/us/courses/6204541-initiez-vous-a-python-pour-l-analyse-de-donnees">▸ Python pour l'analyse de données</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Focus :</strong> functions, classes, pip install, virtual env. Skip les parties trop basiques.
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-red">3</div>
+      <div class="tl-content">
+        <div class="day-label">Day 3 · 2h</div>
+        <h4>Comment fonctionnent les LLMs</h4>
+        <p>Tokens, context window, temperature, next-token prediction. Comprendre l'intuition, pas les maths.</p>
+        <span class="tag tag-yt">YouTube</span>
+        <span class="tag tag-oc">OpenClassrooms</span>
+        <br>
+        <a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">▸ Andrej Karpathy — Intro to Large Language Models (1h)</a><br>
+        <a href="https://openclassrooms.com/us/courses/6417031-objectif-ia-initiez-vous-a-l-intelligence-artificielle">▸ OC — Objectif IA : Initiez-vous à l'IA</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Concepts clés :</strong> tokens ≠ mots, hallucination = probabilité, temperature = créativité
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-red">4</div>
+      <div class="tl-content">
+        <div class="day-label">Day 4 · 2h</div>
+        <h4>Prompt Engineering</h4>
+        <p>System prompts, few-shot, chain of thought, JSON output. Skill le plus utilisé au quotidien.</p>
+        <span class="tag tag-oc">OpenClassrooms</span>
+        <span class="tag tag-doc">Anthropic Docs</span>
+        <br>
+        <a href="https://openclassrooms.com/us/courses/8532116-mettez-en-place-un-rag-pour-un-llm">▸ OC — RAG pour LLM (chapter : Prompt Système)</a><br>
+        <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview">▸ Anthropic — Prompt Engineering Guide</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Interview :</strong> "Quelle différence entre system prompt et user prompt ?"
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-red">5</div>
+      <div class="tl-content">
+        <div class="day-label">Day 5 · 2h</div>
+        <h4>Embeddings ⭐ Concept Clé</h4>
+        <p>Texte → vecteurs numériques. Similarité cosinus. Pourquoi c'est mieux que keyword search.</p>
+        <span class="tag tag-oc">OpenClassrooms</span>
+        <span class="tag tag-doc">Pinecone Learn</span>
+        <br>
+        <a href="https://openclassrooms.com/us/courses/8532116-mettez-en-place-un-rag-pour-un-llm">▸ OC — RAG pour LLM (chapter : Embeddings)</a><br>
+        <a href="https://www.pinecone.io/learn/vector-embeddings/">▸ Pinecone — What are Vector Embeddings ?</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Visualiser :</strong> "Hello" et "Hi" sont proches dans l'espace vectoriel, "Chat" est loin
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-red">6</div>
+      <div class="tl-content">
+        <div class="day-label">Day 6 · 2h</div>
+        <h4>Vector Databases</h4>
+        <p>Pinecone, pgvector, Weaviate. ANN search. Comment stocker et retrouver des embeddings.</p>
+        <span class="tag tag-doc">Pinecone Learn</span>
+        <br>
+        <a href="https://www.pinecone.io/learn/vector-database/">▸ Pinecone — What is a Vector Database ?</a><br>
+        <a href="https://www.pinecone.io/learn/series/faiss/vector-indexes/">▸ Pinecone — Vector Indexes Explained</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Pour le CRM :</strong> pgvector dans Postgres suffit — pas besoin de Pinecone payant
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-red">7</div>
+      <div class="tl-content">
+        <div class="day-label">Day 7 · 2h</div>
+        <h4>RAG — Retrieval Augmented Generation ⭐⭐⭐</h4>
+        <p>Le concept le plus demandé en 2025. Question → Embed → Search → Context → LLM → Réponse.</p>
+        <span class="tag tag-oc">OpenClassrooms</span>
+        <br>
+        <a href="https://openclassrooms.com/us/courses/8532116-mettez-en-place-un-rag-pour-un-llm">▸ OC — Mettez en place un RAG pour un LLM (complet)</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Interview :</strong> "Pourquoi RAG plutôt que Fine-tuning ?" → RAG = data dynamique, pas cher, updatable
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE 2 — WEEK 2 -->
+<div class="page">
+  <div class="page-header">
+    <h3>Semaine 2 — Avancé & Production</h3>
+    <span class="page-num">02</span>
+  </div>
+
+  <h2 class="section-title">Semaine 2 — Production Ready (Days 8-15)</h2>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot dot-blue">8</div>
+      <div class="tl-content">
+        <div class="day-label">Day 8 · 2h</div>
+        <h4>AI Agents</h4>
+        <p>LLM + tools + raisonnement. ReAct pattern. Function/Tool calling. L'agent décide quoi faire seul.</p>
+        <span class="tag tag-doc">Anthropic Docs</span>
+        <span class="tag tag-doc">LangChain</span>
+        <br>
+        <a href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use/overview">▸ Anthropic — Tool Use / Function Calling</a><br>
+        <a href="https://python.langchain.com/docs/modules/agents/">▸ LangChain — Agents Documentation</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Interview :</strong> "Difference agent vs chain ?" → Agent décide dynamiquement, chain est fixe
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-blue">9</div>
+      <div class="tl-content">
+        <div class="day-label">Day 9 · 2h</div>
+        <h4>Memory Systems</h4>
+        <p>Short-term (context), Long-term (vector DB), Episodic, Semantic. Comment l'AI se souvient.</p>
+        <span class="tag tag-doc">LangChain</span>
+        <br>
+        <a href="https://python.langchain.com/docs/modules/memory/">▸ LangChain — Memory Documentation</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Pour le CRM :</strong> historique client = long-term memory → l'AI connaît le contexte client
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-blue">10</div>
+      <div class="tl-content">
+        <div class="day-label">Day 10 · 2h</div>
+        <h4>Fine-tuning vs RAG — Quand utiliser quoi</h4>
+        <p>Fine-tune = changer le comportement du modèle. RAG = ajouter de la connaissance. Decision framework.</p>
+        <span class="tag tag-doc">HuggingFace</span>
+        <br>
+        <a href="https://huggingface.co/blog/rag-vs-fine-tuning">▸ HuggingFace Blog — RAG vs Fine-Tuning</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Règle simple :</strong> données changent souvent → RAG. Style/ton spécifique → Fine-tune
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-blue">11</div>
+      <div class="tl-content">
+        <div class="day-label">Day 11 · 2h</div>
+        <h4>LangChain / LlamaIndex — Frameworks</h4>
+        <p>Chains, Retrievers, Document Loaders, Text Splitters. Les outils utilisés dans 80% des projets AI.</p>
+        <span class="tag tag-doc">LangChain</span>
+        <br>
+        <a href="https://python.langchain.com/docs/get_started/introduction">▸ LangChain — Introduction + Quickstart</a><br>
+        <a href="https://docs.llamaindex.ai/en/stable/getting_started/starter_example/">▸ LlamaIndex — Starter Example</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Focus :</strong> comprendre la structure, pas mémoriser l'API. La doc est là pour ça
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-blue">12</div>
+      <div class="tl-content">
+        <div class="day-label">Day 12 · 2h</div>
+        <h4>Évaluation & Hallucinations</h4>
+        <p>RAGAS metrics : faithfulness, relevance, groundedness. Comment mesurer si ton AI répond bien.</p>
+        <span class="tag tag-doc">RAGAS</span>
+        <span class="tag tag-oc">OpenClassrooms</span>
+        <br>
+        <a href="https://docs.ragas.io/en/latest/getstarted/rag_testset_generation.html">▸ RAGAS — Evaluate your RAG Pipeline</a><br>
+        <a href="https://openclassrooms.com/us/courses/8532116-mettez-en-place-un-rag-pour-un-llm">▸ OC — RAG cours (chapter : Évaluez et améliorez)</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Interview :</strong> "Comment tu mesures la qualité de ton RAG ?" → RAGAS + tests avec ground truth
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-green">13</div>
+      <div class="tl-content">
+        <div class="day-label">Day 13 · 2h</div>
+        <h4>FastAPI — Déployer un modèle AI</h4>
+        <p>Créer une API autour de ton pipeline RAG/Agent. Logging des appels LLM. Cost monitoring.</p>
+        <span class="tag tag-doc">FastAPI</span>
+        <br>
+        <a href="https://fastapi.tiangolo.com/tutorial/first-steps/">▸ FastAPI — Tutorial (chapters 1-5)</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Note :</strong> nta dev Laravel, FastAPI = même concept. Routes, middleware, JSON responses
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-orange">14</div>
+      <div class="tl-content">
+        <div class="day-label">Day 14 · 2h</div>
+        <h4>n8n — Automation & AI Workflows</h4>
+        <p>Connecter LLM + CRM + Email + Slack sans code. Workflows visuels. Use cases production réels.</p>
+        <span class="tag tag-doc">n8n Docs</span>
+        <br>
+        <a href="https://docs.n8n.io/getting-started/quickstart/">▸ n8n — Quickstart (self-hosted)</a><br>
+        <a href="https://n8n.io/workflows/?categories=AI">▸ n8n — AI Workflow Templates (100+ exemples)</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Use cases CRM :</strong> New lead → Claude analyse → score → assign → email auto · Meeting → transcribe → update CRM
+        </div>
+        <div style="margin-top:6px; padding:8px; background:#fff3cd; border-radius:6px; font-size:11px; color:#533f03;">
+          <strong>Pourquoi en interview :</strong> montre que tu sais déployer AI en production rapidement sans over-engineer
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-green">15</div>
+      <div class="tl-content">
+        <div class="day-label">Day 15 · 2h</div>
+        <h4>Multimodal AI</h4>
+        <p>Vision models, analyse d'images, Whisper pour transcription audio. Use cases concrets CRM.</p>
+        <span class="tag tag-doc">Anthropic Docs</span>
+        <br>
+        <a href="https://docs.anthropic.com/en/docs/build-with-claude/vision">▸ Anthropic — Vision (analyse d'images)</a><br>
+        <a href="https://openai.com/research/whisper">▸ OpenAI Whisper — Speech to Text</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Use case CRM :</strong> upload contrat PDF/image → AI extrait les infos automatiquement
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dot-green">16</div>
+      <div class="tl-content">
+        <div class="day-label">Day 16 · 2h</div>
+        <h4>Architecture Patterns — Big Picture</h4>
+        <p>Naive RAG vs Advanced RAG vs Agentic RAG. Multi-agent systems. Human in the loop.</p>
+        <span class="tag tag-doc">DeepLearning.ai</span>
+        <br>
+        <a href="https://learn.deeplearning.ai/courses/building-agentic-rag-with-llamaindex">▸ DeepLearning.ai — Agentic RAG (free)</a><br>
+        <a href="https://learn.deeplearning.ai/courses/ai-agents-in-langgraph">▸ DeepLearning.ai — AI Agents in LangGraph (free)</a>
+        <div style="margin-top:8px; padding:8px; background:#f8f9fa; border-radius:6px; font-size:11px; color:#333;">
+          <strong>Révision finale :</strong> dessine ton architecture pour le CRM — question classique en entretien
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE 3 — INTERVIEWS -->
+<div class="page">
+  <div class="page-header">
+    <h3>Questions d'Entretien — Ce que les Entreprises Demandent</h3>
+    <span class="page-num">03</span>
+  </div>
+
+  <h2 class="section-title">Top Questions Entretien AI Engineer 2025</h2>
+
+  <div class="interview-grid">
+
+    <div class="interview-card">
+      <h4>🔧 RAG Pipeline</h4>
+      <div class="q">Q: "Explique comment tu construirais un RAG de A à Z"</div>
+      <div class="a">Chunking docs → Embed avec text-embedding-3-small → Store dans pgvector → Query: embed question → cosine similarity search → top-k chunks → prompt LLM avec contexte → réponse</div>
+      <div class="q">Q: "Comment tu gères les documents longs ?"</div>
+      <div class="a">Chunking strategy : semantic chunking > fixed-size. Overlap entre chunks (20%). Metadata filtering pour réduire le search space.</div>
+    </div>
+
+    <div class="interview-card">
+      <h4>🤖 Agents & Tools</h4>
+      <div class="q">Q: "Différence entre Chain et Agent ?"</div>
+      <div class="a">Chain = séquence fixe d'étapes. Agent = LLM décide dynamiquement quelle action prendre selon le contexte. Agent est flexible, Chain est prévisible.</div>
+      <div class="q">Q: "Quand tu utilises pas un agent ?"</div>
+      <div class="a">Quand le workflow est simple et prévisible — les agents ajoutent de la latence et des coûts. KISS principle.</div>
+    </div>
+
+    <div class="interview-card">
+      <h4>📊 Évaluation</h4>
+      <div class="q">Q: "Comment tu évalues ton système RAG ?"</div>
+      <div class="a">RAGAS : faithfulness (réponse basée sur contexte ?), answer relevancy (répond à la question ?), context precision. + Tests manuels avec ground truth dataset.</div>
+      <div class="q">Q: "Comment réduire les hallucinations ?"</div>
+      <div class="a">RAG avec grounding, temperature basse (0.1-0.3), demander au modèle de citer ses sources, fallback "je sais pas" si confidence faible.</div>
+    </div>
+
+    <div class="interview-card">
+      <h4>⚡ Performance & Coûts</h4>
+      <div class="q">Q: "Comment tu optimises les coûts LLM ?"</div>
+      <div class="a">Caching des réponses fréquentes, prompt compression, choisir le bon modèle (haiku pour tâches simples, opus pour complexe), batch processing.</div>
+      <div class="q">Q: "Latence trop haute, que faire ?"</div>
+      <div class="a">Streaming responses, réduire context window, async calls parallèles, semantic caching avec Redis.</div>
+    </div>
+
+    <div class="interview-card">
+      <h4>🏗 Architecture</h4>
+      <div class="q">Q: "RAG vs Fine-tuning, quand choisir ?"</div>
+      <div class="a">RAG : données fréquemment mises à jour, besoin de citer les sources, budget limité. Fine-tuning : style/ton très spécifique, tâche répétitive très précise, latence critique.</div>
+      <div class="q">Q: "Comment tu versiones tes prompts ?"</div>
+      <div class="a">Git pour les prompts, A/B testing avec métriques, PromptLayer ou LangSmith pour tracking.</div>
+    </div>
+
+    <div class="interview-card">
+      <h4>🔒 Production & Sécurité</h4>
+      <div class="q">Q: "Prompt injection, comment tu te protèges ?"</div>
+      <div class="a">Input sanitization, instructions claires dans system prompt, validation output, LLM-as-judge pour détecter les réponses hors contexte.</div>
+      <div class="q">Q: "Comment tu monitores en production ?"</div>
+      <div class="a">Log tous les appels LLM (input/output/latency/cost), alertes sur taux d'erreur, LangSmith ou Langfuse pour observabilité.</div>
+    </div>
+
+  </div>
+
+  <div style="background: #0f3460; color: white; border-radius: 10px; padding: 16px 20px; margin-top: 20px;">
+    <strong style="color: #e94560;">⭐ La question qui différencie tout le monde :</strong>
+    <p style="margin-top: 8px; font-size: 13px; line-height: 1.7; color: #a8b2d8;">
+      "Parle-moi d'un projet AI que tu as construit et les challenges que tu as rencontrés"
+      <br><strong style="color: white;">→ Réponse : le CRM avec RAG chatbot + lead scoring — montre du code, parle des vrais problèmes</strong>
+    </p>
+  </div>
+</div>
+
+<!-- PAGE 4 — TOOLS + PRACTICE -->
+<div class="page">
+  <div class="page-header">
+    <h3>Stack Entreprises + Phase Practice CRM</h3>
+    <span class="page-num">04</span>
+  </div>
+
+  <h2 class="section-title">Tools Utilisés dans les Vraies Entreprises</h2>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <h4>LLM Providers</h4>
+      <ul>
+        <li>Anthropic Claude ⭐</li>
+        <li>OpenAI GPT-4o</li>
+        <li>Google Gemini</li>
+        <li>Mistral (Europe)</li>
+        <li>LLaMA (open source)</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <h4>Frameworks AI</h4>
+      <ul>
+        <li>LangChain ⭐</li>
+        <li>LlamaIndex</li>
+        <li>Haystack</li>
+        <li>CrewAI (agents)</li>
+        <li>LangGraph</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <h4>Vector Databases</h4>
+      <ul>
+        <li>pgvector (Postgres) ⭐</li>
+        <li>Pinecone</li>
+        <li>Weaviate</li>
+        <li>Qdrant</li>
+        <li>Chroma (local)</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <h4>Observabilité</h4>
+      <ul>
+        <li>LangSmith ⭐</li>
+        <li>Langfuse (open source)</li>
+        <li>Helicone</li>
+        <li>Arize AI</li>
+        <li>Weights & Biases</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <h4>Déploiement</h4>
+      <ul>
+        <li>FastAPI ⭐</li>
+        <li>Docker</li>
+        <li>BentoML</li>
+        <li>Modal</li>
+        <li>Hugging Face Spaces</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <h4>Embeddings Models</h4>
+      <ul>
+        <li>text-embedding-3-small ⭐</li>
+        <li>text-embedding-3-large</li>
+        <li>BGE-M3 (multilingual)</li>
+        <li>Cohere Embed</li>
+        <li>Sentence Transformers</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <h4>Automation / Integration</h4>
+      <ul>
+        <li>n8n (self-hosted) ⭐</li>
+        <li>Zapier (cloud)</li>
+        <li>Make (ex-Integromat)</li>
+        <li>LangGraph (code)</li>
+        <li>Temporal (enterprise)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:25px;">Phase Practice — Features à Construire dans le CRM</h2>
+
+  <div class="phase-box">
+    <h3><div class="phase-num">1</div> Email & Notes Summarization — <span style="color:#e94560">Semaine 1 Practice</span></h3>
+    <div class="feature-row">
+      <div class="feature-icon">📧</div>
+      <div class="feature-text">
+        <h5>Claude API → Résumer l'historique client automatiquement</h5>
+        <p>Appel direct à l'API Claude depuis Laravel. Prompt engineering pour extraire : résumé, sentiment, actions requises. Simple à implémenter, très impressionnant en demo.</p>
+      </div>
+    </div>
+    <div style="background:#f8f9fa; border-radius:6px; padding:10px; font-size:11px; color:#333;">
+      <strong>Concepts utilisés :</strong> Claude API, Prompt Engineering, JSON output mode
+    </div>
+  </div>
+
+  <div class="phase-box">
+    <h3><div class="phase-num">2</div> RAG Chatbot sur les Données CRM — <span style="color:#e94560">Semaine 2 Practice</span></h3>
+    <div class="feature-row">
+      <div class="feature-icon">💬</div>
+      <div class="feature-text">
+        <h5>"Qui sont mes leads chauds ce mois ?" → Réponse intelligente</h5>
+        <p>Embed les données CRM → pgvector → LangChain RAG pipeline → chatbot dans l'interface Vue.js. L'utilisateur pose des questions en langage naturel sur ses données.</p>
+      </div>
+    </div>
+    <div style="background:#f8f9fa; border-radius:6px; padding:10px; font-size:11px; color:#333;">
+      <strong>Concepts utilisés :</strong> Embeddings, pgvector, RAG, LangChain, FastAPI endpoint
+    </div>
+  </div>
+
+  <div class="phase-box">
+    <h3><div class="phase-num">3</div> Lead Scoring Automatique — <span style="color:#e94560">Semaine 3 Practice</span></h3>
+    <div class="feature-row">
+      <div class="feature-icon">📈</div>
+      <div class="feature-text">
+        <h5>ML model qui prédit quels leads vont convertir</h5>
+        <p>Features : source, interactions, timing, company size → Score 0-100 → Badge Hot/Warm/Cold dans l'UI. Scikit-learn ou LLM-based scoring.</p>
+      </div>
+    </div>
+    <div style="background:#f8f9fa; border-radius:6px; padding:10px; font-size:11px; color:#333;">
+      <strong>Concepts utilisés :</strong> ML features, model deployment, FastAPI, Vue.js integration
+    </div>
+  </div>
+
+  <div class="phase-box">
+    <h3><div class="phase-num">4</div> AI Agent — Actions Automatiques — <span style="color:#e94560">Semaine 4 Practice</span></h3>
+    <div class="feature-row">
+      <div class="feature-icon">🤖</div>
+      <div class="feature-text">
+        <h5>"Assigne ce lead à Ahmed et envoie un email de suivi"</h5>
+        <p>Agent avec tools : update_lead, assign_sales_rep, send_email, create_task. L'utilisateur donne une instruction en langage naturel, l'agent exécute les actions CRM.</p>
+      </div>
+    </div>
+    <div style="background:#f8f9fa; border-radius:6px; padding:10px; font-size:11px; color:#333;">
+      <strong>Concepts utilisés :</strong> Tool calling, Agent loops, LangGraph, Memory
+    </div>
+  </div>
+
+  <div class="footer">
+    AI Engineer Roadmap — 15 jours × 2h/jour → Practice dans CRM · Généré pour usage personnel
+  </div>
+</div>é
+</body>
+</html>
