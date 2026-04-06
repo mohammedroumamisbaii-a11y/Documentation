@@ -3,122 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Training: BI Engine Integration</title>
+    <title>MasterClass: Full-Stack BI Implementation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap');
-        body { background-color: #f8fafc; color: #334155; font-family: 'Inter', sans-serif; line-height: 1.6; }
-        .sidebar { background-color: #0f172a; color: white; }
-        .nav-link { color: #94a3b8; transition: 0.2s; }
-        .nav-link:hover { color: #38bdf8; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.875rem; margin: 1rem 0; overflow-x: auto; }
-        .step-number { background: #38bdf8; color: white; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; font-size: 14px; }
-        h2 { color: #0f172a; font-weight: 800; font-size: 1.875rem; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
-        .important-note { background: #fefce8; border-left: 4px solid #facc15; padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem; }
-    </div>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        :root { --primary: #38bdf8; --bg: #020617; --card: #0f172a; }
+        body { background-color: var(--bg); color: #94a3b8; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .glass-nav { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #1e293b; }
+        .content-section { border-left: 2px solid #1e293b; padding-left: 2rem; margin-bottom: 4rem; position: relative; }
+        .content-section::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary); }
+        .code-window { background: #000; border-radius: 12px; border: 1px solid #334155; overflow: hidden; margin: 20px 0; }
+        .code-header { background: #1e293b; padding: 10px 15px; display: flex; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        pre { padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #7dd3fc; overflow-x: auto; }
+        .badge { background: rgba(56, 189, 248, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .screen-placeholder { background: #1e293b; border: 2px dashed #334155; border-radius: 12px; display: flex; items-center; justify-content: center; min-height: 300px; color: #475569; margin: 20px 0; font-style: italic; text-align: center; padding: 20px; }
     </style>
 </head>
-<body class="flex flex-col md:flex-row min-h-screen">
+<body class="antialiased">
 
-    <aside class="sidebar w-full md:w-72 p-8 space-y-8 flex-shrink-0">
-        <div>
-            <h1 class="text-xl font-black tracking-tighter text-white">BI TRAINING <span class="text-blue-400">HUB</span></h1>
-            <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1 font-bold text-uppercase">Full-Stack Implementation</p>
+    <nav class="glass-nav sticky top-0 z-50 py-4 px-8 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center text-white"><i class="fas fa-layer-group"></i></div>
+            <span class="font-bold text-white tracking-tighter">BI MASTERCLASS 2026</span>
         </div>
-        <nav class="space-y-4 text-sm font-semibold">
-            <a href="#install" class="block nav-link"><i class="fas fa-server mr-2"></i> 01. Server Deployment</a>
-            <a href="#connect" class="block nav-link"><i class="fas fa-database mr-2"></i> 02. Data Connection</a>
-            <a href="#security" class="block nav-link"><i class="fas fa-user-shield mr-2"></i> 03. Signed Embedding</a>
-            <a href="#frontend" class="block nav-link"><i class="fas fa-code mr-2"></i> 04. App Integration</a>
-        </nav>
-    </aside>
+        <div class="hidden md:flex gap-6 text-xs font-bold uppercase tracking-widest">
+            <a href="#arch" class="hover:text-white transition">Architecture</a>
+            <a href="#deploy" class="hover:text-white transition">Deployment</a>
+            <a href="#sec" class="hover:text-white transition">Security</a>
+            <a href="#embed" class="hover:text-white transition">Embedding</a>
+        </div>
+    </nav>
 
-    <main class="flex-1 p-8 md:p-16 max-w-5xl">
+    <div class="max-w-5xl mx-auto px-6 py-20">
         
-        <header class="mb-12">
-            <h1 class="text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Embedding Analytics into Modern Applications</h1>
-            <p class="text-xl text-slate-500 max-w-3xl">A comprehensive guide for developers to install, secure, and integrate professional Business Intelligence dashboards into any software ecosystem.</p>
+        <header class="mb-20">
+            <span class="badge mb-4 italic">Advanced Engineering Module</span>
+            <h1 class="text-6xl font-extrabold text-white mb-6 leading-tight">Data Democratization: <br><span class="text-blue-500 italic">The BI Framework</span></h1>
+            <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">This documentation provides a 360-degree view of implementing a Business Intelligence layer into a multi-tenant ecosystem. We cover extraction, persistence, and secure delivery.</p>
         </header>
 
-        <section id="install">
-            <h2>01. Server-Side Deployment</h2>
-            <p>To run a BI engine reliably, Docker is the industry standard. It ensures that the environment is consistent from development to production.</p>
+        <section id="arch" class="content-section">
+            <h2 class="text-3xl font-bold text-white mb-6">01. The Global Architecture</h2>
+            <p class="mb-6">Before writing code, we must understand the data flow. A professional BI setup follows the <strong>E-L-V (Extract, Load, Visualize)</strong> pattern.</p>
             
-            <h3 class="font-bold mt-6 mb-2">A. Local/Production Launch</h3>
-            <p class="text-sm">Run the following command to pull the latest image and map the persistence port (3000):</p>
-            <div class="code-block">
-                docker run -d -p 3000:3000 --name bi_engine metabase/metabase
+            <div class="screen-placeholder">
+                <div>
+                    <i class="fas fa-project-diagram text-5xl mb-4"></i>
+                    <p>[Image: High-level system architecture showing API Sources -> Airbyte -> Central Database -> Metabase Engine -> Client Frontend]</p>
+                </div>
             </div>
             
-            <div class="important-note text-sm">
-                <strong>💡 Production Tip:</strong> For high-availability, always map a persistent volume to <code>/metabase.db</code> or connect Metabase to an external Postgres database to store its configuration metadata.
-            </div>
+
+[Image of business intelligence data architecture showing data sources, ETL process, data warehouse, and visualization tools]
+
+            <p class="mt-6">In this model, the BI engine acts as a separate microservice that "listens" to your database and serves visual components back to your main application via secure tunnels.</p>
         </section>
 
-        <section id="connect">
-            <h2>02. Data Source Orchestration</h2>
-            <p>Once the server is live at <code>http://your-server-ip:3000</code>, you must bridge it with your application's data.</p>
-            <ul class="list-disc list-inside mt-4 space-y-3 text-slate-600">
-                <li><strong>Compatibility:</strong> Connects to MySQL, PostgreSQL, MongoDB, SQL Server, and BigQuery.</li>
-                <li><strong>Read-Only Access:</strong> Always create a specific database user with <code>SELECT</code> only permissions for the BI engine. This prevents accidental data deletion via the BI interface.</li>
-                <li><strong>Sync Frequency:</strong> Configure the engine to scan for schema changes every hour to stay updated with your app's migrations.</li>
-            </ul>
-        </section>
-
-        <section id="security">
-            <h2>03. Implementing Signed Embedding</h2>
-            <p>Standard sharing is public. In professional apps, we use <strong>Signed Embedding</strong> to ensure that only authenticated users can see specific charts.</p>
+        <section id="deploy" class="content-section">
+            <h2 class="text-3xl font-bold text-white mb-6">02. Production-Ready Deployment</h2>
+            <p class="mb-4">Using Docker for orchestration ensures that the BI engine has its own isolated memory and process space.</p>
             
-            <h3 class="font-bold mt-6 mb-2 text-slate-800">The Authentication Logic:</h3>
-            <p class="text-sm mb-4">The application generates a <strong>JSON Web Token (JWT)</strong> signed with a secret key provided by the BI engine. This token tells the engine: "I am a trusted app, and I allow this user to see Dashboard X."</p>
-
-            <div class="code-block">
-                // Logic Flow (Backend)
-                1. Define the Dashboard ID.
-                2. Set an expiration time (e.g., +15 minutes).
-                3. Create a payload: { "resource": {"dashboard": 123}, "params": {} }
-                4. Sign the payload using HS256 algorithm with your SECRET_KEY.
+            <div class="code-window">
+                <div class="code-header">
+                    <div class="dot bg-red-500"></div><div class="dot bg-yellow-500"></div><div class="dot bg-green-500"></div>
+                    <span class="ml-4 text-[10px] text-slate-400 font-mono italic uppercase">Docker-Compose.yml</span>
+                </div>
+                <pre><code>version: '3.9'
+services:
+  bi_engine:
+    image: metabase/metabase:latest
+    container_name: metabase_instance
+    ports:
+      - "3000:3000"
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=metabaseappdb
+      - MB_DB_PORT=5432
+      - MB_DB_USER=db_admin
+      - MB_DB_PASS=secure_password
+      - MB_DB_HOST=postgres_host
+    restart: always</code></pre>
             </div>
+
+            <div class="screen-placeholder">
+                <div>
+                    <i class="fas fa-desktop text-5xl mb-4"></i>
+                    <p>[Screenshot: The Metabase Initial Setup Screen showing "Add your Data" step]</p>
+                </div>
+            </div>
+            
         </section>
 
-        <section id="frontend">
-            <h2>04. Application Frontend Integration</h2>
-            <p>The final step is rendering the secured dashboard inside your application's UI. This is done via an <code>&lt;iframe&gt;</code>.</p>
-
-            <h3 class="font-bold mt-6 mb-2 text-slate-800">Implementation Example:</h3>
-            <div class="code-block text-emerald-400">
-                &lt;!-- The frontend receives the Signed URL from the backend --&gt;
-                &lt;iframe
-                    src="https://stats.yourapp.com/embed/dashboard/SIGNATURE_HERE#bordered=true&titled=false"
-                    frameborder="0"
-                    width="100%"
-                    height="800"
-                    allowtransparency
-                &gt;&lt;/iframe&gt;
+        <section id="sec" class="content-section">
+            <h2 class="text-3xl font-bold text-white mb-6">03. The Security Protocol (JWT)</h2>
+            <p class="mb-4">We never use public links in a commercial app. We implement <strong>Interactive Signed Embedding</strong>. This ensures Client A cannot see Client B's data.</p>
+            
+            <h4 class="text-blue-400 font-bold mb-2 uppercase text-xs">The Payload Logic</h4>
+            <div class="code-window">
+                <pre><code>{
+  "resource": { "dashboard": 1 },
+  "params": {
+    "organization_id": 502  // Locked parameter: The user only sees data for Org 502
+  },
+  "exp": 1712416800 // Token expires in 15 minutes
+}</code></pre>
             </div>
-
-            <div class="important-note text-sm">
-                <strong>🔒 Multi-tenancy:</strong> If your app has multiple clients, you can pass <code>locked parameters</code> in the JWT. This ensures Client A can <strong>never</strong> see Client B's data, even if they change the ID in the URL.
-            </div>
+            
+            <p class="text-sm italic text-slate-500 mb-6">Note: The signature is created using the HS256 algorithm with your Private Embedding Key.</p>
         </section>
 
-        <footer class="mt-20 pt-10 border-t border-slate-200 text-center text-slate-400 text-sm">
-            <p>&copy; 2026 Engineering Training Module • Confidential & Technical</p>
+        <section id="embed" class="content-section">
+            <h2 class="text-3xl font-bold text-white mb-6">04. Frontend Component Delivery</h2>
+            <p class="mb-4">The final integration involves rendering the signed URL. Here is how it looks in a generic modern component:</p>
+            
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="text-[10px] text-slate-400 font-mono uppercase italic">BI-Dashboard.component</span>
+                </div>
+                <pre><code>&lt;section class="analytics-wrapper"&gt;
+  &lt;!-- Dynamic iframe with Signed URL from Backend --&gt;
+  &lt;iframe
+    src="https://analytics.your-domain.com/embed/dashboard/YOUR_JWT_HERE#bordered=true"
+    frameborder="0"
+    width="100%"
+    height="1000px"
+    allowtransparency
+  &gt;&lt;/iframe&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+
+            <div class="screen-placeholder">
+                <div>
+                    <i class="fas fa-chart-line text-5xl mb-4"></i>
+                    <p>[Screenshot: A clean dashboard showing Bar Charts and KPIs integrated into a CRM sidebar]</p>
+                </div>
+            </div>
+            
+        </section>
+
+        <footer class="mt-32 pt-10 border-t border-slate-900 flex justify-between items-center text-[10px] uppercase tracking-widest text-slate-600 font-bold">
+            <div>&copy; 2026 Advanced Engineering Series</div>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-blue-500">Documentation</a>
+                <a href="#" class="hover:text-blue-500">API Reference</a>
+                <a href="#" class="hover:text-blue-500">Security Audit</a>
+            </div>
         </footer>
 
-    </main>
+    </div>
 
-    <script>
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
 </html>
