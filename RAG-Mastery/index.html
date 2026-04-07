@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG & Vector Intelligence | ROUMAMI Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-family=%22serif%22 fill=%22red%22 font-weight=%22bold%22>R</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap');
+        body { background-color: #020617; color: #94a3b8; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .glass-card { background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 1.5rem; }
+        .hero-gradient { background: radial-gradient(circle at top right, #1e3a8a 0%, #020617 50%); }
+        .code-block { background: #0f172a; border: 1px solid #334155; font-family: 'Fira Code', monospace; border-radius: 0.75rem; padding: 1.25rem; color: #38bdf8; position: relative; }
+        .step-number { background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; }
+        .gradient-text { background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tool-link:hover { color: #38bdf8; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-slate-950/80 backdrop-blur-md border-b border-slate-900">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-brain text-blue-500 text-xl"></i>
+            <span class="text-white font-bold tracking-tighter">ROUMAMI <span class="text-blue-500 uppercase text-[10px]">AI-Lab</span></span>
+        </div>
+        <a href="../" class="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-white transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Hub
+        </a>
+    </nav>
+
+    <header class="pt-32 pb-20 px-6 hero-gradient overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em]">Advanced Training Module</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mt-6 mb-8 tracking-tighter">
+                Retrieval Augmented <br><span class="gradient-text italic">Generation (RAG)</span>
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed italic">
+                Bridging the gap between static Language Models and your private business data. 2026 Enterprise Standards.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 pb-20">
+        
+        <section class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-[2px] w-12 bg-blue-500"></div>
+                <h2 class="text-2xl font-bold text-white tracking-tight italic">01. The Architecture</h2>
+            </div>
+            <div class="glass-card overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=2000" alt="Decentralized Tech Visual" class="w-full h-64 object-cover opacity-60">
+                <div class="p-8">
+                    <p class="mb-6 text-slate-300">Un RAG typique fonctionne en connectant trois composants majeurs : <strong>L'utilisateur</strong>, la <strong>Base de Données Vectorielle</strong>, et le <strong>LLM</strong>.</p>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <h4 class="text-blue-400 font-bold uppercase text-xs tracking-widest">Le Flux de Données :</h4>
+                            <ul class="space-y-3 text-sm">
+                                <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Question → Vectorization (Embeddings)</li>
+                                <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Search → Vector Database (Similarity)</li>
+                                <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Prompt → LLM + Context</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                            <h4 class="text-white font-bold text-sm mb-3 italic">Why RAG?</h4>
+                            <p class="text-xs leading-relaxed text-slate-400">Contrairement au Fine-tuning, le RAG est dynamique. Si vous modifiez un document dans votre base, l'IA connaît la réponse instantanément sans réentraînement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="h-[2px] w-12 bg-blue-500"></div>
+                <h2 class="text-2xl font-bold text-white tracking-tight italic">02. Step-by-Step Implementation</h2>
+            </div>
+
+            <div class="space-y-16">
+                <div class="flex gap-8">
+                    <div class="flex-shrink-0"><div class="step-number">1</div></div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-4 italic">Embeddings (Le cœur mathématique)</h3>
+                        <p class="text-sm mb-6 text-slate-400">Convertissez vos textes en vecteurs numériques. Utilisez des modèles comme <code>text-embedding-3-small</code> d'OpenAI ou des alternatives locales.</p>
+                        <div class="code-block">
+                            <span class="absolute top-2 right-4 text-[10px] uppercase font-bold text-slate-500">Local Embedding Tool</span>
+                            # Ollama is great for local embeddings<br>
+                            ollama pull mxbai-embed-large
+                        </div>
+                        <p class="text-xs mt-4">🔗 <a href="https://ollama.com/" target="_blank" class="tool-link">Ollama Official Site</a></p>
+                    </div>
+                </div>
+
+                <div class="flex gap-8">
+                    <div class="flex-shrink-0"><div class="step-number">2</div></div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-4 italic">Vector Database (Le stockage intelligent)</h3>
+                        <p class="text-sm mb-6 text-slate-400">Stockez vos vecteurs dans une base spécialisée capable de calculer la <strong>Similarité Cosinus</strong>.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-blue-600/5 p-4 rounded-xl border border-blue-500/20">
+                                <h5 class="text-blue-400 font-bold text-xs mb-2 uppercase">Self-Hosted (Recommended)</h5>
+                                <p class="text-[11px] text-slate-300 italic">pgvector (Postgres extension) ou Weaviate (Docker).</p>
+                                <a href="https://github.com/pgvector/pgvector" target="_blank" class="text-[10px] text-slate-500 hover:text-blue-400 underline mt-2 block italic">GitHub Repo</a>
+                            </div>
+                            <div class="bg-emerald-600/5 p-4 rounded-xl border border-emerald-500/20">
+                                <h5 class="text-emerald-400 font-bold text-xs mb-2 uppercase">Managed Cloud</h5>
+                                <p class="text-[11px] text-slate-300 italic">Pinecone - Serverless Vector DB.</p>
+                                <a href="https://www.pinecone.io/" target="_blank" class="text-[10px] text-slate-500 hover:text-emerald-400 underline mt-2 block italic">Official Website</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-8">
+                    <div class="flex-shrink-0"><div class="step-number">3</div></div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-4 italic">The RAG Chain (Laravel/Python)</h3>
+                        <p class="text-sm mb-6 text-slate-400">Utilisez un orchestrateur pour lier l'entrée utilisateur à la recherche sémantique.</p>
+                        <div class="code-block">
+                            <span class="absolute top-2 right-4 text-[10px] uppercase font-bold text-slate-500">Frameworks</span>
+                            // PHP: use EchoLabs / LangChain PHP <br>
+                            // Python: use LangChain or LlamaIndex
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24 pt-12 border-t border-slate-900">
+            <h2 class="text-center text-white font-black text-xs uppercase tracking-[0.5em] mb-12 italic">Essential Tooling Suite</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="https://huggingface.co/" target="_blank" class="glass-card p-6 text-center group hover:border-blue-500 transition-all">
+                    <i class="fas fa-smile text-yellow-400 text-2xl mb-4"></i>
+                    <h5 class="text-xs font-bold text-white uppercase italic">Hugging Face</h5>
+                </a>
+                <a href="https://www.langchain.com/" target="_blank" class="glass-card p-6 text-center group hover:border-blue-500 transition-all">
+                    <i class="fas fa-link text-blue-400 text-2xl mb-4"></i>
+                    <h5 class="text-xs font-bold text-white uppercase italic">LangChain</h5>
+                </a>
+                <a href="https://milvus.io/" target="_blank" class="glass-card p-6 text-center group hover:border-blue-500 transition-all">
+                    <i class="fas fa-vial text-emerald-400 text-2xl mb-4"></i>
+                    <h5 class="text-xs font-bold text-white uppercase italic">Milvus</h5>
+                </a>
+                <a href="https://github.com/openai/openai-cookbook" target="_blank" class="glass-card p-6 text-center group hover:border-blue-500 transition-all">
+                    <i class="fab fa-github text-white text-2xl mb-4"></i>
+                    <h5 class="text-xs font-bold text-white uppercase italic">AI Cookbook</h5>
+                </a>
+            </div>
+        </section>
+
+        <section class="glass-card p-12 text-center bg-blue-600/5 border-blue-500/20">
+            <h2 class="text-3xl font-extrabold text-white mb-4 italic tracking-tight">Ready to Integrate?</h2>
+            <p class="text-slate-400 mb-8 max-w-xl mx-auto text-sm italic">Commencez par indexer les raisons d'annulation de vos leads dans SomoCRM pour une analyse automatisée en temps réel.</p>
+            <button onclick="window.print()" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-black text-[10px] uppercase tracking-widest transition-all">
+                Export Documentation
+            </button>
+        </section>
+
+        <footer class="mt-20 text-center opacity-30">
+            <p class="text-[9px] uppercase tracking-[0.4em] font-black italic">&copy; 2026 Roma Engineering Systems • Secured Laboratory</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
