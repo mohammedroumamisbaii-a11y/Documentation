@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Règlement des pauses — SOMO CRM</title>
+  <style>
+    :root {
+      --brand: #7367f0;
+      --brand-dark: #5e54d6;
+      --ink: #1b2333;
+      --muted: #5b6577;
+      --line: #e6e8ef;
+      --bg: #f6f7fb;
+      --cafe: #8a5a2b;
+      --lunch: #d98324;
+      --wc: #0e9bb5;
+      --ok: #28a745;
+      --no: #c0392b;
+      --soft: #eef0f8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px 64px; }
+
+    /* Header */
+    header.hero {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+      color: #fff;
+      padding: 48px 20px 40px;
+      text-align: center;
+    }
+    header.hero .badge {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.18);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    header.hero h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; }
+    header.hero p { margin: 0; opacity: .92; font-size: 15px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-top: 22px;
+      box-shadow: 0 1px 3px rgba(20,30,60,.04);
+    }
+    h2 {
+      font-size: 20px;
+      margin: 0 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .num {
+      flex: none;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--brand-dark);
+      font-size: 14px; font-weight: 800;
+      display: grid; place-items: center;
+    }
+    h3 { font-size: 15px; margin: 18px 0 8px; }
+    p { margin: 8px 0; }
+    .muted { color: var(--muted); }
+    .lead { font-size: 15.5px; }
+
+    /* Recap table */
+    table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 14.5px; }
+    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    thead th { background: var(--soft); color: var(--ink); font-weight: 700; }
+    tbody tr:hover { background: #fafbff; }
+    td.center, th.center { text-align: center; }
+    .yes { color: var(--ok); font-weight: 700; }
+    .no  { color: var(--no);  font-weight: 700; }
+    .dash { color: #aab; }
+
+    .pill {
+      display: inline-block; font-size: 12.5px; font-weight: 700;
+      padding: 2px 10px; border-radius: 999px;
+    }
+    .pill.cafe  { background: #f4ebe1; color: var(--cafe); }
+    .pill.lunch { background: #fbeede; color: #a4641a; }
+    .pill.wc    { background: #def4f8; color: var(--wc); }
+
+    /* Type cards */
+    .type-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 760px) { .type-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .type {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .type .top { padding: 14px 16px; color: #fff; font-weight: 800; font-size: 16px; }
+    .type.cafe  .top { background: var(--cafe); }
+    .type.lunch .top { background: var(--lunch); }
+    .type.wc    .top { background: var(--wc); }
+    .type ul { margin: 0; padding: 14px 16px 16px 30px; font-size: 14px; }
+    .type li { margin: 6px 0; }
+
+    .note {
+      border-left: 4px solid var(--brand);
+      background: #f3f2fd;
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 14px 0;
+      font-size: 14.5px;
+    }
+    .note.warn { border-color: var(--lunch); background: #fdf3e6; }
+    .note.ok   { border-color: var(--ok);   background: #eefaf0; }
+
+    ul.clean { margin: 8px 0; padding-left: 22px; }
+    ul.clean li { margin: 6px 0; }
+
+    code {
+      background: #eef0f6; color: #41486a;
+      padding: 1px 7px; border-radius: 6px;
+      font-family: "Cascadia Code", Consolas, monospace; font-size: 13px;
+    }
+
+    footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 34px; }
+
+    @media print {
+      body { background: #fff; }
+      .card, .type { box-shadow: none; }
+      header.hero { background: var(--brand) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <span class="badge">Ressources Humaines · SOMO CRM</span>
+    <h1>Règlement des pauses</h1>
+    <p>Règles de gestion des pauses appliquées par le système — café, déjeuner et toilette</p>
+  </header>
+
+  <div class="wrap">
+
+    <!-- INTRO -->
+    <section class="card">
+      <p class="lead">
+        Ce document décrit, en clair, <strong>toutes les règles de pause</strong> appliquées
+        automatiquement par le CRM. L'objectif n'est pas de pénaliser les pauses, mais de les
+        <strong>organiser</strong> pour préserver le rythme de travail, la disponibilité de
+        l'équipe et une couverture stable durant la journée.
+      </p>
+      <p class="muted">
+        On distingue trois types de pause : <span class="pill cafe">Café</span>
+        <span class="pill lunch">Déjeuner</span> <span class="pill wc">Toilette</span>.
+        Le café et le déjeuner sont des <em>pauses organisées</em> (avec des règles) ;
+        la toilette est un <em>besoin</em>, donc plus souple.
+      </p>
+    </section>
+
+    <!-- RECAP TABLE -->
+    <section class="card">
+      <h2><span class="num">1</span> Tableau récapitulatif</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Règle</th>
+            <th class="center"><span class="pill cafe">Café</span></th>
+            <th class="center"><span class="pill lunch">Déjeuner</span></th>
+            <th class="center"><span class="pill wc">Toilette</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nombre maximum par jour</td>
+            <td class="center"><strong>2</strong></td>
+            <td class="center dash">illimité</td>
+            <td class="center"><strong>2</strong></td>
+          </tr>
+          <tr>
+            <td>Durée de la pause</td>
+            <td class="center">15 min</td>
+            <td class="center">30 min</td>
+            <td class="center">5 min</td>
+          </tr>
+          <tr>
+            <td>Créneau horaire imposé</td>
+            <td class="center dash">—</td>
+            <td class="center"><strong>13:00 – 15:00</strong></td>
+            <td class="center dash">—</td>
+          </tr>
+          <tr>
+            <td>Fenêtres protégées (début / fin de poste)</td>
+            <td class="center yes">Oui</td>
+            <td class="center yes">Oui</td>
+            <td class="center no">Non</td>
+          </tr>
+          <tr>
+            <td>Écart minimum entre pauses (60 min)</td>
+            <td class="center yes">Oui</td>
+            <td class="center yes">Oui</td>
+            <td class="center no">Non</td>
+          </tr>
+          <tr>
+            <td>File d'attente (capacité limitée)</td>
+            <td class="center yes">Oui · 3 à la fois</td>
+            <td class="center no">Non</td>
+            <td class="center yes">Oui · 2 à la fois</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted" style="font-size:13.5px">
+        Toutes ces valeurs sont des <strong>réglages</strong> ajustables par le management
+        (voir section 7) — elles n'ont pas besoin d'une modification du code.
+      </p>
+    </section>
+
+    <!-- PER-TYPE -->
+    <section class="card">
+      <h2><span class="num">2</span> Règles par type de pause</h2>
+      <div class="type-grid">
+
+        <div class="type cafe">
+          <div class="top">☕ Café</div>
+          <ul>
+            <li><strong>2 fois par jour</strong> maximum.</li>
+            <li>Durée : <strong>15 min</strong> (au-delà, le compteur passe en rouge).</li>
+            <li>Respecte les <strong>fenêtres protégées</strong> (début/fin de poste).</li>
+            <li><strong>60 min</strong> minimum depuis la dernière pause contrôlée.</li>
+            <li><strong>File d'attente</strong> : 3 personnes au maximum en même temps.</li>
+          </ul>
+        </div>
+
+        <div class="type lunch">
+          <div class="top">🍽️ Déjeuner</div>
+          <ul>
+            <li>Autorisé <strong>uniquement</strong> entre <strong>13:00 et 15:00</strong>.</li>
+            <li>Durée : <strong>30 min</strong>.</li>
+            <li>Respecte les <strong>fenêtres protégées</strong> et l'<strong>écart 60 min</strong>.</li>
+            <li><strong>Pas de limite</strong> par jour.</li>
+            <li><strong>Pas de file d'attente</strong> : jamais en attente.</li>
+          </ul>
+        </div>
+
+        <div class="type wc">
+          <div class="top">🚻 Toilette</div>
+          <ul>
+            <li><strong>2 fois par jour</strong> maximum.</li>
+            <li>Durée : <strong>5 min</strong> (au-delà, passe en rouge).</li>
+            <li><strong>File d'attente</strong> : 2 personnes au maximum en même temps.</li>
+            <li><strong>Sans</strong> fenêtres protégées ni écart 60 min.</li>
+            <li>Disponible à toute heure (c'est un besoin).</li>
+          </ul>
+        </div>
+
+      </div>
+      <p class="muted" style="font-size:13.5px; margin-top:14px">
+        Un type « <strong>Autre</strong> » existe aussi : il n'est soumis à aucune restriction.
+      </p>
+    </section>
+
+    <!-- PROTECTED WINDOWS -->
+    <section class="card">
+      <h2><span class="num">3</span> Les fenêtres protégées (début / fin de poste)</h2>
+      <p>
+        Le café et le déjeuner sont <strong>bloqués</strong> :
+      </p>
+      <ul class="clean">
+        <li>durant les <strong>30 premières minutes</strong> après le début du poste — pour bien démarrer la journée&nbsp;;</li>
+        <li>durant les <strong>30 dernières minutes</strong> avant la fin du poste — pour clôturer les tâches et la passation.</li>
+      </ul>
+      <p><strong>Exemple</strong> — poste de 09:00 à 17:00 :</p>
+      <ul class="clean">
+        <li>café/déjeuner <span class="no">refusés avant 09:30</span> ;</li>
+        <li>café/déjeuner <span class="yes">autorisés de 09:30 à 16:30</span> ;</li>
+        <li>café/déjeuner <span class="no">refusés après 16:30</span>.</li>
+      </ul>
+      <div class="note warn">
+        Les horaires de début/fin proviennent du <strong>planning</strong> de l'agent.
+        Si l'agent n'a <strong>pas de planning</strong> ce jour-là, ces deux contrôles sont
+        <strong>ignorés</strong> (le système ne connaît pas ses horaires) ; les autres règles
+        restent appliquées. La toilette n'est jamais concernée par les fenêtres.
+      </div>
+    </section>
+
+    <!-- 60 MIN GAP -->
+    <section class="card">
+      <h2><span class="num">4</span> L'écart minimum de 60 minutes</h2>
+      <p>
+        Entre deux <strong>pauses contrôlées</strong> (café ou déjeuner), il faut un écart d'au
+        moins <strong>60 minutes</strong>. Cela évite d'enchaîner les pauses rapprochées et garde
+        un rythme de travail stable.
+      </p>
+      <p class="muted">
+        Si l'écart n'est pas respecté, l'agent voit un message du type :
+        « <em>Veuillez patienter encore X min avant la prochaine pause.</em> »
+        La toilette n'entre pas dans ce calcul.
+      </p>
+    </section>
+
+    <!-- QUEUE -->
+    <section class="card">
+      <h2><span class="num">5</span> La file d'attente (couverture de l'équipe)</h2>
+      <p>
+        Pour garder l'équipe disponible, un nombre limité d'agents peuvent être en pause
+        <strong>en même temps</strong> :
+      </p>
+      <ul class="clean">
+        <li><span class="pill cafe">Café</span> : <strong>3</strong> agents à la fois.</li>
+        <li><span class="pill wc">Toilette</span> : <strong>2</strong> agents à la fois.</li>
+        <li><span class="pill lunch">Déjeuner</span> : <strong>pas de limite</strong>.</li>
+      </ul>
+      <p>Quand toutes les places sont prises, voici ce qui se passe :</p>
+      <ul class="clean">
+        <li>l'agent est mis <strong>en file d'attente</strong> (ordre d'arrivée, premier arrivé premier servi)&nbsp;;</li>
+        <li>dès qu'une place se libère, elle est <strong>proposée</strong> au prochain de la file&nbsp;;</li>
+        <li>il doit <strong>confirmer</strong> rapidement (≈ 30 secondes) pour démarrer sa pause&nbsp;;</li>
+        <li>s'il ne confirme pas à temps, la place passe à la personne suivante.</li>
+      </ul>
+      <div class="note ok">
+        Chaque <strong>rôle/équipe a son propre quota</strong> de places. Les pauses d'une équipe
+        ne bloquent pas une autre équipe : la file du café des agents de confirmation est
+        indépendante de celle des agents de suivi.
+      </div>
+    </section>
+
+    <!-- ROLES -->
+    <section class="card">
+      <h2><span class="num">6</span> Cas particulier : l'agent Marketing</h2>
+      <p>
+        Le rôle <strong>Agent Marketing</strong> suit <strong>les mêmes règles</strong>
+        (quotas café/toilette, créneau déjeuner, durées, fenêtres, écart 60 min)
+        <strong>mais sans file d'attente</strong> : il prend sa pause immédiatement dès que les
+        règles sont respectées, sans jamais attendre.
+      </p>
+      <p class="muted">
+        À la connexion, ce rôle arrive directement sur la page de pause dédiée.
+      </p>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="card">
+      <h2><span class="num">7</span> Réglages ajustables par le management</h2>
+      <p class="muted">Ces valeurs peuvent être modifiées sans toucher au code (via les réglages du système).</p>
+      <table>
+        <thead>
+          <tr><th>Réglage</th><th class="center">Valeur actuelle</th><th>Signification</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>break_cafe_daily_allowance</code></td><td class="center">2</td><td>Nombre de cafés par jour</td></tr>
+          <tr><td><code>break_cafe_duration_minutes</code></td><td class="center">15</td><td>Durée d'un café</td></tr>
+          <tr><td><code>break_controlled_capacity</code></td><td class="center">3</td><td>Café : agents simultanés (par rôle)</td></tr>
+          <tr><td><code>break_lunch_start</code></td><td class="center">13:00</td><td>Début du créneau déjeuner</td></tr>
+          <tr><td><code>break_lunch_end</code></td><td class="center">15:00</td><td>Fin du créneau déjeuner</td></tr>
+          <tr><td><code>break_lunch_duration_minutes</code></td><td class="center">30</td><td>Durée du déjeuner</td></tr>
+          <tr><td><code>break_toilette_daily_allowance</code></td><td class="center">2</td><td>Nombre de toilettes par jour</td></tr>
+          <tr><td><code>break_toilette_duration_minutes</code></td><td class="center">5</td><td>Durée d'une toilette</td></tr>
+          <tr><td><code>break_toilette_capacity</code></td><td class="center">2</td><td>Toilette : agents simultanés (par rôle)</td></tr>
+          <tr><td><code>break_protected_start_minutes</code></td><td class="center">30</td><td>Blocage en début de poste</td></tr>
+          <tr><td><code>break_protected_end_minutes</code></td><td class="center">30</td><td>Blocage en fin de poste</td></tr>
+          <tr><td><code>break_min_gap_minutes</code></td><td class="center">60</td><td>Écart minimum entre pauses contrôlées</td></tr>
+          <tr><td><code>break_offer_seconds</code></td><td class="center">30</td><td>Délai pour confirmer une place libérée</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TRACKING / OVERRUN -->
+    <section class="card">
+      <h2><span class="num">8</span> Suivi & dépassements (côté RH)</h2>
+      <ul class="clean">
+        <li>Le système <strong>ne coupe pas</strong> une pause qui dépasse sa durée : il l'<strong>enregistre</strong> et l'affiche en <strong>rouge</strong>.</li>
+        <li>La page <strong>« Suivi des pauses »</strong> permet de voir : la vue d'ensemble, les stats par employé / département / type, et un onglet <strong>« Dépassements »</strong> (qui a dépassé, combien de fois, et de combien de minutes).</li>
+        <li>Le RH peut <strong>filtrer par employé</strong> et par <strong>période</strong> (aujourd'hui, 7 jours, 30 jours, ou dates précises).</li>
+        <li>Les messages affichés aux agents existent en <strong>français, anglais et arabe</strong> (selon la langue choisie).</li>
+      </ul>
+    </section>
+
+    <!-- PRINCIPLE -->
+    <section class="card">
+      <h2><span class="num">9</span> Principe général</h2>
+      <p class="lead">
+        Contrôler les pauses de confort (café), organiser le déjeuner, et ne jamais bloquer un
+        besoin essentiel (toilette). Discipline <strong>sans</strong> injustice.
+      </p>
+    </section>
+
+    <footer>
+      Document de référence — Règlement des pauses · SOMO CRM ·
+      généré pour les Ressources Humaines.
+    </footer>
+
+  </div>
+</body>
+</html>
